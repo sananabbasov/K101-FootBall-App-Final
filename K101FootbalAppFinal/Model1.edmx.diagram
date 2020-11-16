@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f944c1707d164044be3a8ffee3fff424" Name="Diagram1">
+        <EntityTypeShape EntityType="K101FootBallAppDBModel.Order" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="K101FootBallAppDBModel.Role" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="K101FootBallAppDBModel.Room" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="K101FootBallAppDBModel.Stadion" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="K101FootBallAppDBModel.Worker" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="K101FootBallAppDBModel.FK__Orders__RoomID__1BFD2C07" ManuallyRouted="false" />
+        <AssociationConnector Association="K101FootBallAppDBModel.FK__Orders__StadionI__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="K101FootBallAppDBModel.FK__Orders__WorkerID__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="K101FootBallAppDBModel.FK__Workers__RoleID__1273C1CD" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="K101FootBallAppDBModel.Time" Width="1.5" PointX="5.375" PointY="5.875" />
+        <AssociationConnector Association="K101FootBallAppDBModel.FK__Orders__TimeID__2E1BDC42" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

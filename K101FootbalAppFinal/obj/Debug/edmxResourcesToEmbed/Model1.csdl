@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="K101FootBallAppDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CustomerSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CustomerPhone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StadionID" Type="Int32" />
+    <Property Name="RezervDate" Type="DateTime" Precision="0" />
+    <Property Name="WorkerID" Type="Int32" />
+    <Property Name="RoomID" Type="Int32" />
+    <NavigationProperty Name="Room" Relationship="Self.FK__Orders__RoomID__1BFD2C07" FromRole="Orders" ToRole="Rooms" />
+    <NavigationProperty Name="Stadion" Relationship="Self.FK__Orders__StadionI__173876EA" FromRole="Orders" ToRole="Stadions" />
+    <NavigationProperty Name="Worker" Relationship="Self.FK__Orders__WorkerID__182C9B23" FromRole="Orders" ToRole="Workers" />
+    <Property Name="TimeID" Type="Int32" />
+    <NavigationProperty Name="Time" Relationship="K101FootBallAppDBModel.FK__Orders__TimeID__2E1BDC42" FromRole="Order" ToRole="Time" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Workers" Relationship="Self.FK__Workers__RoleID__1273C1CD" FromRole="Roles" ToRole="Workers" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="RoomID" />
+    </Key>
+    <Property Name="RoomID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoomNumber" Type="Int32" Nullable="false" />
+    <Property Name="RoomCapacity" Type="Int32" Nullable="false" />
+    <Property Name="RoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__RoomID__1BFD2C07" FromRole="Rooms" ToRole="Orders" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stadion">
+    <Key>
+      <PropertyRef Name="StadionID" />
+    </Key>
+    <Property Name="StadionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StadionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StadionPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__StadionI__173876EA" FromRole="Stadions" ToRole="Orders" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="WorkerID" />
+    </Key>
+    <Property Name="WorkerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WorkerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="WorkerEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="WorkerPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RoleID" Type="Int32" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__WorkerID__182C9B23" FromRole="Workers" ToRole="Orders" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__Workers__RoleID__1273C1CD" FromRole="Workers" ToRole="Roles" />
+  </EntityType>
+  <Association Name="FK__Orders__RoomID__1BFD2C07">
+    <End Role="Rooms" Type="Self.Room" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="RoomID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="RoomID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__StadionI__173876EA">
+    <End Role="Stadions" Type="Self.Stadion" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stadions">
+        <PropertyRef Name="StadionID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="StadionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__WorkerID__182C9B23">
+    <End Role="Workers" Type="Self.Worker" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Workers">
+        <PropertyRef Name="WorkerID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="WorkerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Workers__RoleID__1273C1CD">
+    <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Workers" Type="Self.Worker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Workers">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="K101FootBallAppDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Rooms" EntityType="Self.Room" />
+    <EntitySet Name="Stadions" EntityType="Self.Stadion" />
+    <EntitySet Name="Workers" EntityType="Self.Worker" />
+    <AssociationSet Name="FK__Orders__RoomID__1BFD2C07" Association="Self.FK__Orders__RoomID__1BFD2C07">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__StadionI__173876EA" Association="Self.FK__Orders__StadionI__173876EA">
+      <End Role="Stadions" EntitySet="Stadions" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__WorkerID__182C9B23" Association="Self.FK__Orders__WorkerID__182C9B23">
+      <End Role="Workers" EntitySet="Workers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Workers__RoleID__1273C1CD" Association="Self.FK__Workers__RoleID__1273C1CD">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Workers" EntitySet="Workers" />
+    </AssociationSet>
+    <EntitySet Name="Times" EntityType="K101FootBallAppDBModel.Time" />
+    <AssociationSet Name="FK__Orders__TimeID__2E1BDC42" Association="K101FootBallAppDBModel.FK__Orders__TimeID__2E1BDC42">
+      <End Role="Time" EntitySet="Times" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Time">
+    <Key>
+      <PropertyRef Name="TimesID" />
+    </Key>
+    <Property Name="TimesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Shifts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Orders" Relationship="K101FootBallAppDBModel.FK__Orders__TimeID__2E1BDC42" FromRole="Time" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK__Orders__TimeID__2E1BDC42">
+    <End Type="K101FootBallAppDBModel.Time" Role="Time" Multiplicity="0..1" />
+    <End Type="K101FootBallAppDBModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Time">
+        <PropertyRef Name="TimesID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="TimeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
